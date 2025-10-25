@@ -3,34 +3,28 @@
 #Печерин Егор
 
 #Задача №2
-list_negative = []
-list_positive = []
+num_negative = 0
+num_positive = 0
 num_1 = 1
 
 while num_1 != 0:
     num_1 = int(input("Введите число (комбинация чисел заканчивается 0): "))
     if num_1 >= 0:
-        list_positive.append(num_1)
+        num_positive = num_positive + 1
     elif num_1 < 0:
-        list_negative.append(num_1)
+        num_negative = num_negative + 1
 
-print(f"Положительные числа:", list_positive,
-      f"Отрицательные числа:", list_negative)
-
-list_1.remove(0)
-print("Четные числа: ", list_1)
+print(f"Кол-во положительных чисел:", num_positive,
+      f"Кол-во отрицательных чисел:", num_negative)
 
 #Задача №3
 import random
 num_1 = int(input("Введите кол-во чисел: " ))
-list_1 = []
+nums = 0
 
 for i in range(0, num_1):
     num_2 = random.randint(0, 50)
     if num_2 % 2 != 0 and num_2 % 3 == 0:
-        list_1.append(num_2)
-    print(num_2)
+        nums = nums + 1
 
-list_2 = list(set(list_1))
-
-print("Нечетные числа кратные трем:", list_2)
+print("Кол-во нечетных чисел кратных трем:", nums)
