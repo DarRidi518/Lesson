@@ -1,78 +1,33 @@
-import time
-import random
+#Печерин Егор ИИ-71, задания за 06.12.2025
 
 #Задача №1
-tic = time.perf_counter()
-list = [random.randint(-100, 100) for i in range(20)]
-anwser = 0
-for i in range(len(list) - 1):
-    pairs = list[i] + list[i-1]
-    if pairs >= 0:
-        anwser += 1
-toc = time.perf_counter()
-print(anwser)
-print("Вычесление заняло:", toc - tic, "секунд")
+nums = int(input("Кол-во чисел: "))
+nums_list = []
+count = 0
+for i in range(nums):
+    numbers = int(input("Введите число: "))
+    nums_list.append(numbers)
+
+pairs = [a * b for a in nums_list for b in nums_list]
+
+for num in pairs:
+    if num % 26:
+        count += 1
+print(count // 2)
 
 #Задача №2
-tic = time.perf_counter()
-list = [random.randint(-100, 100) for i in range(20)]
-list_2 = []
-for i in range(len(list) - 1):
-    pairs = list[i] + list[i-1]
-    list_2.append(pairs)
-    list_2.sort(reverse=True)
-anwser = list_2[1]
-toc = time.perf_counter()
-print(anwser)
-print("Вычесление заняло:", toc - tic, "секунд")
+nums = int(input("Кол-во чисел: "))
+nums_list = []
+count = 0
+for i in range(nums):
+    numbers = int(input("Введите число: "))
+    nums_list.append(numbers)
+
+pairs = [a * b for a in nums_list for b in nums_list]
+
+for num in pairs:
+    if num % 62:
+        count += 1
+print(count // 4)
 
 #Задача №3
-tic = time.perf_counter()
-list = [random.randint(-100, 100) for i in range(20)]
-for i in range(len(list) - 1):
-    pair_1 = list[i]
-    pair_2 = list[i-1]
-    if pair_2 > pair_1:
-        print(pair_1, pair_2)
-toc = time.perf_counter()
-print("Вычесление заняло:", toc - tic, "секунд")
-
-#Задача №4
-tic = time.perf_counter()
-list = [random.randint(0, 1000) for i in range(20)]
-anwser = 0
-for i in range(len(list) - 1):
-    if list[i] % 2 == 0 and list[i-1] % 2 == 0 and list[i-2] % 2 == 0:
-        anwser += 1
-toc = time.perf_counter()
-print(anwser)
-print("Вычесление заняло:", toc - tic, "секунд")
-
-#Задача №5
-tic = time.perf_counter()
-list = [random.randint(-100, 100) for i in range(20)]
-anwser = 0
-for i in range(len(list) - 1):
-    pairs = list[i] * list[i-1]
-    if pairs >= 0 and pairs % 7 == 2:
-        anwser += 1
-toc = time.perf_counter()
-print(anwser)
-print("Вычесление заняло:", toc - tic, "секунд")
-
-#Задача №6
-tic = time.perf_counter()
-list = [random.randint(-100, 100) for i in range(20)]
-anwser = 0
-for i in range(len(list) - 1):
-    pair_1 = list[i]
-    pair_2 = list[i-1]
-    module_div = abs(pair_1 / pair_2)
-    module_1 = abs(pair_1)
-    module_2 = abs(pair_2)
-    if module_1 - module_2 > 14:
-        if module_div >= 1:
-            anwser += 1
-toc = time.perf_counter()
-print(anwser)
-print("Вычесление заняло:", toc - tic, "секунд")
