@@ -1,33 +1,29 @@
-#Печерин Егор ИИ-71, задания за 06.12.2025
+list = [16, 36, 39, 91, 96, 6, 14, 50, 60]
 
-#Задача №1
-nums = int(input("Кол-во чисел: "))
-nums_list = []
-count = 0
-for i in range(nums):
-    numbers = int(input("Введите число: "))
-    nums_list.append(numbers)
+max_int = 0
 
-pairs = [a * b for a in nums_list for b in nums_list]
+if list:
+    max_int = list[0]
+    for int in list:
+        if int > max_int:
+            max_int = int
 
-for num in pairs:
-    if num % 26:
-        count += 1
-print(count // 2)
+print(max_int)
 
-#Задача №2
-nums = int(input("Кол-во чисел: "))
-nums_list = []
-count = 0
-for i in range(nums):
-    numbers = int(input("Введите число: "))
-    nums_list.append(numbers)
 
-pairs = [a * b for a in nums_list for b in nums_list]
+def bubble(list_nums):
+    swap_bool = True
+    while swap_bool:
+        swap_bool = False
+        for i in range(len(list_nums) - 1):
+            if list_nums[i] > list_nums[i + 1]:
+                list_nums[i], list_nums[i + 1] = list_nums[i + 1], list_nums[i]
+                swap_bool = True
 
-for num in pairs:
-    if num % 62:
-        count += 1
-print(count // 4)
+bubble(list)
 
-#Задача №3
+max_int = list[-2]
+print(list)
+print(list.index(max_int))
+
+
