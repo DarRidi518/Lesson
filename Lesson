@@ -1,62 +1,27 @@
-list = [16, 36, 39, 91, 96, 6, 14, 50, 60]
-count = 0
-example_list = list
+import numpy as np, time, psutil
 
-#Первое задание
-max_int = list[0]
-for int in list:
-    if int > max_int:
-        max_int = int
-a = list.index(max_int)
-list.pop(a)
 
-max_int = list[0]
-for int in list:
-    if int > max_int:
-        max_int = int
-print(max_int)
+matrix = np.random.randint(0, 20, size=(3, 3, 3))
+print(matrix)
+target = int(input("Введите цифру, которую надо найти: "))
 
-#Второе задание
-max_int = list[0]
-for int in list:
-    if int > max_int:
-        max_int = int
-a = list.index(max_int)
-list.pop(a)
+def benchmark(func):
+    def wrapper(*args, **kwargs):
+        start_time = time.process_time()
+        result = func(*args, **kwargs)
+        end_time = time.process_time()
+        memory = psutil.Process().memory_info().rss / 1024 ** 2
+        print(f"--- Результаты: {func.__name__} ---")
+        print(f"Память: {memory:.2f} МБ")
+        print(f"Время: {end_time - start_time:.8f} сек")
+        return result
+    return wrapper
 
-max_int = list[0]
-for int in list:
-    if int > max_int:
-        max_int = int
-a = list.index(max_int)
-list.pop(a)
 
-max_int = list[0]
-for int in list:
-    if int > max_int:
-        max_int = int
-    index = example_list.index(max_int)
-print(index)
+@benchmark
+def seek():
+    coords = np.where(matrix == target)
+    print(coords)
 
-#Третье задание
-n = len(list)
-for i in range(1, n - 1):
-    if list[i] > list[i - 1] and list[i] > list[i + 1]:
-        count += 1
-print(count)
 
-#Четвертое задание
-list_1 = [4, 8, 12, 14, 23, 85]
-list_2 = [2, 4, 8, 9, 12, 85]
-
-for x in list_1:
-    inserted = False
-    for i, y in enumerate(list_2):
-        if x <= y:
-            list_2.insert(i, x)
-            inserted = True
-            break
-    if not inserted:
-        list_2.append(x)
-
-print(list_2)
+print(seek())
