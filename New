@@ -1,0 +1,132 @@
+def is_balanced(root):
+    """
+    Проверяет, сбалансировано ли дерево.
+    Возвращает True/False.
+    Использует один проход: функция check возвращает высоту
+    или -1, если обнаружен дисбаланс.
+    """
+    def check(node):
+        # Пустой узел — высота 0
+        if node is None:
+            return 0
+
+        # Высота левого поддерева
+        left_h = check(node['left'])
+        if left_h == -1:
+            return -1
+
+        # Высота правого поддерева
+        right_h = check(node['right'])
+        if right_h == -1:
+            return -1
+
+        # Проверка баланса для текущего узла
+        if abs(left_h - right_h) > 1:
+            return -1
+
+        # Высота текущего поддерева
+        return max(left_h, right_h) + 1
+
+    return check(root) != -1
+
+
+# --- Пример использования ---
+# Сбалансированное дерево:
+#       1
+#      / \
+#     2   3
+#    /
+#   4
+balanced_tree = {
+    'val': 1,
+    'left': {
+        'val': 2,
+        'left': {'val': 4, 'left': None, 'right': None},
+        'right': None
+    },
+    'right': {'val': 3, 'left': None, 'right': None}
+}
+
+# Несбалансированное дерево:
+#       1
+#      /
+#     2
+#    /
+#   3
+unbalanced_tree = {
+    'val': 1,
+    'left': {
+        'val': 2,
+        'left': {'val': 3, 'left': None, 'right': None},
+        'right': None
+    },
+    'right': None
+}
+
+print("Сбалансированное:", is_balanced(balanced_tree))      # True
+print("Несбалансированное:", is_balanced(unbalanced_tree))  # Falsedef flatten_to_linked_list(root):
+    """
+    Преобразует дерево (словари) в связный список (вырожденное дерево вправо).
+    Возвращает голову (корень) полученного списка.
+    """
+    if root is None:
+        return None
+
+    nodes = []
+
+    # In-order обход: левый -> корень -> правый
+    def inorder(node):
+        if node is None:
+            return
+        inorder(node['left'])
+        nodes.append(node)
+        inorder(node['right'])
+
+    inorder(root)
+
+    # Перестраиваем связи
+    head = nodes[0]
+    current = head
+
+    for i in range(1, len(nodes)):
+        current['left'] = None              # отключаем левого потомка
+        current['right'] = nodes[i]         # правым делаем следующий узел
+        current = current['right']
+
+    # У последнего узла потомков нет
+    current['left'] = None
+    current['right'] = None
+
+    return head
+
+
+# --- Пример использования (по картинке) ---
+# Исходное дерево:
+#       1
+#      / \
+#     2   5
+#    / \   \
+#   3   4   6
+tree = {
+    'val': 1,
+    'left': {
+        'val': 2,
+        'left':  {'val': 3, 'left': None, 'right': None},
+        'right': {'val': 4, 'left': None, 'right': None}
+    },
+    'right': {
+        'val': 5,
+        'left': None,
+        'right': {'val': 6, 'left': None, 'right': None}
+    }
+}
+
+new_head = flatten_to_linked_list(tree)
+
+# Вывод результата
+print("Связный список:")
+current = new_head
+while current:
+    print(current['val'], end=" -> " if current['right'] else "")
+    current = current['right']
+# Ожидаемый вывод: 1 -> 2 -> 3 -> 4 -> 5 -> 6
